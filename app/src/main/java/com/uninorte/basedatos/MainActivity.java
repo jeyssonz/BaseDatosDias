@@ -1,6 +1,7 @@
 package com.uninorte.basedatos;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +18,7 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 EditText Hora,Mensaje;
-String[] Día = {"Lunes","Martes","Miercoles","Jueves","Viernes"};
+String[] Día = {"Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"};
 String DBName;
 private int hora,minuto;
     @Override
@@ -76,7 +77,12 @@ BDDias elDia = new BDDias(this , DBName,null , 1);
                 case "Viernes":
                     db.execSQL("INSERT INTO Viernes (Hora, curso) VALUES ('" + Tiempo + "','" + Curso + "') " );
                     break;
-
+                case "Sabado":
+                    db.execSQL("INSERT INTO Sabado (Hora, curso) VALUES ('" + Tiempo + "','" + Curso + "') " );
+                    break;
+                case "Domingo":
+                    db.execSQL("INSERT INTO Domingo (Hora, curso) VALUES ('" + Tiempo + "','" + Curso + "') " );
+                    break;
             }
 
 
@@ -96,6 +102,16 @@ BDDias elDia = new BDDias(this , DBName,null , 1);
             }
         },hora,minuto,false);
         timePickerDialog.show();
+
+    }
+
+    public void Ver(View view) {
+
+        Intent intent = new Intent(this,ver.class);
+        intent.putExtra("i",DBName);
+        startActivity(intent);
+
+
 
     }
 }
